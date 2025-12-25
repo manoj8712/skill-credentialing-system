@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Faculty Dashboard{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12"><h2 class="mb-4"><i class="fas fa-chalkboard-teacher"></i> Faculty Dashboard</h2></div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header"><h4>Pending Skills for Verification ({{ pending_skills|length }})</h4></div>
+            <div class="card-body">
+                {% if pending_skills %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Skill Name</th>
+                                <th>Category</th>
+                                <th>Proof</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for skill in pending_skills %}
+                            <tr>
+                                <td>{{ skill.student_name }}</td>
+                                <td><strong>{{ skill.skill_name }}</strong></td>
+                                <td><span class="badge bg-info">{{ skill.category }}</span></td>
+                                <td>
+                                    {% if 'http' in skill.proof_url %}
+                                    <a href="{{ skill.proof_url }}" target="_blank" class="btn btn-sm btn-link">
+                                        <i class="fas fa-external-link-alt"></i> View
+                                    </a>
+                                    {% else %}
+                                    <a href="/{{ skill.proof_url }}" target="_blank" class="btn btn-sm btn-link">
+                                        <i class="fas fa-file"></i> View File
+                                    </a>
+                                    {% endif %}
+                                </td>
+                                <td>{{ skill.description[:50] if skill.description else '-' }}...</td>
+                                <td>
+                                    <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#verifyModal{{ loop.index }}">
+                                        <i class="fas fa-check"></i> Review
+                                    </button>
+                                </td>
+                            </tr>
+                            <div class="modal fade" id="verifyModal{{ loop.index }}" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Verify: {{ skill.skill_name }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <form method="POST" action="{{ url_for('verify_skill', skill_id=skill._id) }}">
+                                            <div class="modal-body">
+                                                <p><strong>Student:</strong> {{ skill.student_name }}</p>
+                                                <p><strong>Skill:</strong> {{ skill.skill_name }}</p>
+                                                <p><strong>Category:</strong> {{ skill.category }}</p>
+                                                <p><strong>Description:</strong> {{ skill.description }}</p>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Rating (1-5)</label>
+                                                    <select class="form-select" name="rating">
+                                                        <option value="1">1 - Beginner</option>
+                                                        <option value="2">2 - Elementary</option>
+                                                        <option value="3" selected>3 - Intermediate</option>
+                                                        <option value="4">4 - Advanced</option>
+                                                        <option value="5">5 - Expert</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Comments</label>
+                                                    <textarea class="form-control" name="comments" rows="3"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" name="action" value="approve" class="btn btn-success">
+                                                    <i class="fas fa-check"></i> Approve
+                                                </button>
+                                                <button type="submit" name="action" value="reject" class="btn btn-danger">
+                                                    <i class="fas fa-times"></i> Reject
+                                                </button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="alert alert-info"><i class="fas fa-info-circle"></i> No pending skills for verification.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

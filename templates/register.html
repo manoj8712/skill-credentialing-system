@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% block title %}Register - SkillChain{% endblock %}
+{% block content %}
+
+<!-- Hero Header Section -->
+<div class="row mb-5 animate__animated animate__fadeInDown">
+    <div class="col-12">
+        <div class="text-center" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(20px); border-radius: 25px; padding: 3rem 2rem; border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 20px 60px rgba(0,0,0,0.2);">
+            <div class="mb-3">
+                <i class="fas fa-rocket" style="font-size: 4rem; background: linear-gradient(135deg, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: pulse 2s infinite;"></i>
+            </div>
+            <h1 class="text-white fw-bold mb-2" style="font-size: 2.5rem;">
+                Start Your Credibility Journey
+            </h1>
+            <p class="text-white mb-0" style="font-size: 1.2rem; opacity: 0.9;">
+                Join thousands building verified skill portfolios
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-7 animate__animated animate__fadeInUp">
+        <div class="card" style="border-radius: 30px;">
+            <div class="card-body p-5">
+                <div class="text-center mb-5">
+                    <div class="mb-4">
+                        <div style="width: 100px; height: 100px; margin: 0 auto; background: linear-gradient(135deg, #10b981, #34d399); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 15px 40px rgba(16,185,129,0.4);">
+                            <i class="fas fa-user-plus" style="font-size: 3rem; color: white;"></i>
+                        </div>
+                    </div>
+                    <h2 class="fw-bold mb-2" style="background: linear-gradient(135deg, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                        Create Your Account
+                    </h2>
+                    <p class="text-muted">Get started with blockchain-verified credentials</p>
+                </div>
+
+                <form method="POST" action="{{ url_for('register') }}" id="registerForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">
+                                <i class="fas fa-user text-success me-2"></i> Full Name
+                            </label>
+                            <input type="text" class="form-control" name="full_name" required 
+                                   placeholder="John Doe" autocomplete="name">
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">
+                                <i class="fas fa-at text-success me-2"></i> Username
+                            </label>
+                            <input type="text" class="form-control" name="username" required 
+                                   placeholder="johndoe" autocomplete="username">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">
+                            <i class="fas fa-envelope text-success me-2"></i> Email Address
+                        </label>
+                        <input type="email" class="form-control" name="email" required 
+                               placeholder="john@example.com" autocomplete="email">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">
+                            <i class="fas fa-lock text-success me-2"></i> Password
+                        </label>
+                        <input type="password" class="form-control" name="password" id="regPassword" required 
+                               placeholder="••••••••" autocomplete="new-password">
+                        <div class="mt-2">
+                            <div class="progress" style="height: 5px;">
+                                <div class="progress-bar" id="passwordStrength" style="width: 0%"></div>
+                            </div>
+                            <small class="text-muted" id="strengthText">Password strength: Weak</small>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">
+                            <i class="fas fa-user-tag text-success me-2"></i> I am a...
+                        </label>
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <input type="radio" class="btn-check" name="role" id="roleStudent" value="student" checked>
+                                <label class="btn btn-outline-success w-100 py-3" for="roleStudent" style="border-radius: 15px; border-width: 2px;">
+                                    <i class="fas fa-user-graduate d-block fs-2 mb-2"></i>
+                                    <strong>Student</strong>
+                                    <small class="d-block text-muted">Submit & verify skills</small>
+                                </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="radio" class="btn-check" name="role" id="roleFaculty" value="faculty">
+                                <label class="btn btn-outline-primary w-100 py-3" for="roleFaculty" style="border-radius: 15px; border-width: 2px;">
+                                    <i class="fas fa-chalkboard-teacher d-block fs-2 mb-2"></i>
+                                    <strong>Faculty</strong>
+                                    <small class="d-block text-muted">Review & approve skills</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 form-check">
+                        <input type="checkbox" class="form-check-input" id="agreeTerms" required>
+                        <label class="form-check-label" for="agreeTerms">
+                            I agree to the <a href="#" style="color: #10b981;">Terms & Conditions</a> and <a href="#" style="color: #10b981;">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100 py-3 mb-4">
+                        <i class="fas fa-rocket me-2"></i> Create Account
+                    </button>
+                </form>
+
+                <div class="text-center">
+                    <p class="text-muted mb-0">
+                        Already have an account? 
+                        <a href="{{ url_for('login') }}" class="fw-bold" style="color: #6366f1; text-decoration: none;">
+                            Login here
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4 mb-5">
+            <div class="d-flex justify-content-center gap-4 text-white flex-wrap">
+                <div>
+                    <i class="fas fa-check-circle me-2"></i>
+                    <span>Blockchain Verified</span>
+                </div>
+                <div>
+                    <i class="fas fa-lock me-2"></i>
+                    <span>100% Secure</span>
+                </div>
+                <div>
+                    <i class="fas fa-bolt me-2"></i>
+                    <span>Instant Setup</span>
+                </div>
+                <div>
+                    <i class="fas fa-users me-2"></i>
+                    <span>Join 10,000+ Users</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Password strength checker
+document.getElementById('regPassword').addEventListener('input', function(e) {
+    const password = e.target.value;
+    const strengthBar = document.getElementById('passwordStrength');
+    const strengthText = document.getElementById('strengthText');
+
+    let strength = 0;
+    if (password.length >= 8) strength += 25;
+    if (password.match(/[a-z]+/)) strength += 25;
+    if (password.match(/[A-Z]+/)) strength += 25;
+    if (password.match(/[0-9]+/)) strength += 25;
+
+    strengthBar.style.width = strength + '%';
+
+    if (strength <= 25) {
+        strengthBar.style.background = 'linear-gradient(90deg, #ef4444, #f87171)';
+        strengthText.textContent = 'Password strength: Weak';
+        strengthText.style.color = '#ef4444';
+    } else if (strength <= 50) {
+        strengthBar.style.background = 'linear-gradient(90deg, #f59e0b, #fbbf24)';
+        strengthText.textContent = 'Password strength: Fair';
+        strengthText.style.color = '#f59e0b';
+    } else if (strength <= 75) {
+        strengthBar.style.background = 'linear-gradient(90deg, #3b82f6, #60a5fa)';
+        strengthText.textContent = 'Password strength: Good';
+        strengthText.style.color = '#3b82f6';
+    } else {
+        strengthBar.style.background = 'linear-gradient(90deg, #10b981, #34d399)';
+        strengthText.textContent = 'Password strength: Strong';
+        strengthText.style.color = '#10b981';
+    }
+});
+</script>
+{% endblock %}

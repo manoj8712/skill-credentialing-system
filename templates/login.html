@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}Login - SkillChain{% endblock %}
+{% block content %}
+
+<!-- Hero Header Section -->
+<div class="row mb-5 animate__animated animate__fadeInDown">
+    <div class="col-12">
+        <div class="text-center" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(20px); border-radius: 25px; padding: 3rem 2rem; border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 20px 60px rgba(0,0,0,0.2);">
+            <div class="mb-3">
+                <i class="fas fa-certificate" style="font-size: 4rem; background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: pulse 2s infinite;"></i>
+            </div>
+            <h1 class="text-white fw-bold mb-2" style="font-size: 2.5rem;">
+                Decentralized Skill Credentialing & Blockchain-Based Verification Ledger
+            </h1>
+            <p class="text-white mb-0" style="font-size: 1.2rem; opacity: 0.9;">
+                Blockchain-Powered Skill Verification System
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-5 animate__animated animate__zoomIn">
+        <div class="card" style="border-radius: 30px;">
+            <div class="card-body p-5">
+                <div class="text-center mb-5">
+                    <div class="mb-4 position-relative">
+                        <div style="width: 100px; height: 100px; margin: 0 auto; background: linear-gradient(135deg, #6366f1, #a855f7); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 15px 40px rgba(99,102,241,0.4); animation: pulse 2s infinite;">
+                            <i class="fas fa-sign-in-alt" style="font-size: 3rem; color: white;"></i>
+                        </div>
+                    </div>
+                    <h2 class="fw-bold mb-2" style="background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                        Login to Your Account
+                    </h2>
+                    <p class="text-muted">Access your verified credentials and skills</p>
+                </div>
+
+                <form method="POST" action="{{ url_for('login') }}" id="loginForm">
+                    <div class="mb-4">
+                        <label class="form-label">
+                            <i class="fas fa-envelope text-primary me-2"></i> Email Address
+                        </label>
+                        <input type="email" class="form-control" name="email" required 
+                               placeholder="your@email.com" autocomplete="email">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">
+                            <i class="fas fa-lock text-primary me-2"></i> Password
+                        </label>
+                        <div class="position-relative">
+                            <input type="password" class="form-control" name="password" id="password" required 
+                                   placeholder="••••••••" autocomplete="current-password">
+                            <button type="button" class="btn btn-sm position-absolute" 
+                                    style="right: 10px; top: 50%; transform: translateY(-50%); border: none; background: transparent;"
+                                    onclick="togglePassword()">
+                                <i class="fas fa-eye text-muted" id="toggleIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">
+                            Remember me
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-3 mb-4">
+                        <i class="fas fa-sign-in-alt me-2"></i> Login to Dashboard
+                    </button>
+                </form>
+
+                <div class="text-center">
+                    <div class="mb-3">
+                        <span class="text-muted">or continue with</span>
+                    </div>
+                    <div class="d-flex gap-2 mb-4">
+                        <button class="btn btn-outline-secondary flex-fill" style="border-radius: 12px;">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button class="btn btn-outline-secondary flex-fill" style="border-radius: 12px;">
+                            <i class="fab fa-github"></i>
+                        </button>
+                        <button class="btn btn-outline-secondary flex-fill" style="border-radius: 12px;">
+                            <i class="fab fa-linkedin"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted mb-0">
+                        Don't have an account? 
+                        <a href="{{ url_for('register') }}" class="fw-bold" style="color: #6366f1; text-decoration: none;">
+                            Create one now
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4 mb-5">
+            <div class="d-flex justify-content-center gap-4 text-white flex-wrap">
+                <div>
+                    <i class="fas fa-shield-alt me-2"></i>
+                    <span>Blockchain Secured</span>
+                </div>
+                <div>
+                    <i class="fas fa-lock me-2"></i>
+                    <span>Encrypted</span>
+                </div>
+                <div>
+                    <i class="fas fa-check-circle me-2"></i>
+                    <span>Verified</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function togglePassword() {
+    const passwordInput = document.getElementById('password');
+    const toggleIcon = document.getElementById('toggleIcon');
+
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
+    } else {
+        passwordInput.type = 'password';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
+    }
+}
+</script>
+{% endblock %}

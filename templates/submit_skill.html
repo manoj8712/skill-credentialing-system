@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Submit Skill{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-upload"></i> Submit Skill for Verification</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('submit_skill') }}" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">Skill Name *</label>
+                        <input type="text" class="form-control" name="skill_name" required placeholder="e.g., Python Programming">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Category *</label>
+                        <select class="form-select" name="category" required>
+                            <option value="">Select Category</option>
+                            <option value="Programming">Programming</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Data Science">Data Science</option>
+                            <option value="Design">Design</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Marketing">Full Stack Development</option>
+                            <option value="Other">Other</option>
+                            
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Proof Type *</label>
+                        <select class="form-select" name="proof_type" required>
+                            <option value="">Select Proof Type</option>
+                            <option value="github">GitHub Repository</option>
+                            <option value="certificate">Certificate/Document</option>
+                            <option value="project">Project Screenshot</option>
+                            <option value="portfolio">Portfolio Link</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Proof URL (GitHub/Portfolio Link)</label>
+                        <input type="url" class="form-control" name="proof_url" placeholder="https://github.com/username/project">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Upload File (PDF, Image)</label>
+                        <input type="file" class="form-control" name="proof_file" accept=".pdf,.png,.jpg,.jpeg,.gif">
+                        <small class="text-muted">Max size: 16MB</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" name="description" rows="4" placeholder="Describe your skill..."></textarea>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit</button>
+                        <a href="{{ url_for('student_dashboard') }}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
