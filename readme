@@ -102,8 +102,12 @@ Range: 0-100
 - Faculty rating average (quality measure)
 - Rejection penalty (discourages false claims)
 
-### 6. **Public Profile & Verification**
+### 6. **Public Profile, QR Codes & Verification**
 - Shareable profile URLs (e.g., `/profile/john_doe`)
+- Automatic QR code generation for each public profile
+  - QR is shown on the profile page and embedded as a data URI
+  - Clicking the QR downloads a PNG image (`<a download>`)
+  - Scanning the QR takes users to the same profile (showing verified skills, total skills and credentials)
 - Display verified credentials with hashes
 - Real-time credential verification API
 - Instant authenticity checks for recruiters
@@ -225,6 +229,7 @@ pip install -r requirements.txt
 ```bash
 python app.py
 ```
+pytest -v
 
 ## 🔒 Security Features
 

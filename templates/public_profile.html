@@ -21,7 +21,10 @@
                 <hr>
                 <div class="mb-3">
                     <p class="mb-2"><strong>Share Profile:</strong></p>
-                    <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code" class="img-fluid" style="max-width: 200px;">
+                    <a href="data:image/png;base64,{{ qr_code }}" download="{{ user.username }}_profile.png" title="Download QR code">
+                        <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code" class="img-fluid" style="max-width: 200px;">
+                    </a>
+                    <p class="small text-muted mt-1">Click the code to download</p>
                 </div>
             </div>
         </div>

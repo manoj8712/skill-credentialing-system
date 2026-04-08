@@ -5,6 +5,9 @@ from auth import hash_password, verify_password, login_required, role_required
 from werkzeug.utils import secure_filename
 from bson.objectid import ObjectId
 import os
+import qrcode
+import io
+import base64
 
 app = Flask(__name__)
 app.secret_key = 'your-super-secret-key-change-in-production'
@@ -228,13 +231,26 @@ def public_profile(username):
     skills = db.get_student_skills(str(user['_id']))
     approved_skills = [s for s in skills if s['status'] == 'approved']
 
+    # Build the URL for this public profile. it's used in the QR code.
     profile_url = request.url
+
+    # generate QR code image as base64 so template can render it inline
+    qr = qrcode.QRCode(version=1, box_size=10, border=5)
+    qr.add_data(profile_url)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
+
+    buf = io.BytesIO()
+    img.save(buf, format='PNG')
+    buf.seek(0)
+    qr_code = base64.b64encode(buf.getvalue()).decode()
 
     return render_template('public_profile.html',
                          user=user,
                          credentials=credentials,
                          skills=approved_skills,
-                         profile_url=profile_url)
+                         profile_url=profile_url,
+                         qr_code=qr_code)
 
 @app.route('/verify/<credential_hash>')
 def verify_credential(credential_hash):
