@@ -5,5 +5,4 @@ venv/
 .env/
 .idea/
 .vscode/
-
-
+test/__pycache__
